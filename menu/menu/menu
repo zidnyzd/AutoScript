@@ -174,7 +174,7 @@ a=" ${CYAN}ACCOUNT PREMIUM"
 #clear
 echo -e " "
 echo -e "\033[97;1m┌─────────────────────────────────────────────────┐\033[0m "
-echo -e "\e[97;1m│\e[0m \033[41;1;97;1m           AUTOSCRIPT ZIDSTORE             \033[0m \e[97;1m│\e[0m"
+echo -e "\e[97;1m│\e[0m \033[41;1;97;1m             AUTOSCRIPT ZIDSTORE               \033[0m \e[97;1m│\e[0m"
 echo -e "\033[97;1m└─────────────────────────────────────────────────┘\033[0m "
 echo -e "\033[97;1m┌─────────────────────────────────────────────────┐\033[0m "
 echo -e " ${z}$NC$r - $NC$y System OS ${NC}     $z=$NC $MODEL${NC}"
