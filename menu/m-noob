@@ -1,0 +1,261 @@
+#!/bin/bash
+# // Exporting Language to UTF-8
+export LC_ALL='en_US.UTF-8'
+export LANG='en_US.UTF-8'
+export LANGUAGE='en_US.UTF-8'
+export LC_CTYPE='en_US.utf8'
+
+# // Export Color & Information
+export RED='\033[0;31m'
+export GREEN='\033[0;32m'
+export YELLOW='\033[0;33m'
+export BLUE='\033[0;34m'
+export PURPLE='\033[0;35m'
+export CY='\033[0;36m'
+export LIGHT='\033[0;37m'
+export NC='\033[0m'
+
+# // Export Banner Status Information
+export EROR="[${RED} EROR ${NC}]"
+export INFO="[${YELLOW} INFO ${NC}]"
+export OKEY="[${GREEN} OKEY ${NC}]"
+export PENDING="[${YELLOW} PENDING ${NC}]"
+export SEND="[${YELLOW} SEND ${NC}]"
+export RECEIVE="[${YELLOW} RECEIVE ${NC}]"
+
+# // Export Align
+export BOLD="\e[1m"
+export WARNING="${RED}\e[5m"
+export UNDERLINE="\e[4m"
+
+# // Exporting URL Host
+export Server_URL="autosc.me/aio"
+export Server_Port="443"
+export Server_IP="underfined"
+export Script_Mode="Stable"
+export Auther="XdrgVPN"
+
+function garis() {
+echo -e "${CY}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+}
+
+checking_sc
+
+
+function create(){
+clear
+
+garis
+echo -e "${GREEN}| \E[44;1;39m      °NOOBZVPN'S CREATE°            \E[0m|"
+garis
+read -p "Username: " user
+read -p "Password: " pass
+read -p "Exp (0 for unlimited days):" exp
+read -p "IP LIMIT " ip
+
+if [ ! -e /etc/wggly/limit/noobs/ip/ ]; then
+  mkdir -p /etc/wggly/limit/noobs/ip/
+fi
+echo "$ip" > /etc/wggly/limit/noobs/ip/$user
+
+noobzvpns --add-user $user $pass --expired-user $user $exp
+
+
+clear
+
+garis
+echo -e "${CY}| \E[44;1;39m      °NOOBZVPN'S ACCOUNT°            \E[0m|"
+garis
+echo ""
+echo -e "DOMAIN : $( cat /etc/xray/domain )"
+echo -e "USERNAME: $user"
+echo -e "PASSWORD: $pass"
+echo -e "IP LIMIT: $ip"
+echo -e "EXP DAYS: $exp DAYS"
+echo -e "tcp_std port:  8880"
+echo -e "tcp_ssl port: 8443"
+garis
+echo -e "Example config TCP_STD 8880"
+garis
+echo ""
+echo -e "EDB1WT8Gbt2QIWH7WByP7HEkn8MscG9sjGpbUkGOrhau5PGnMt1BfpDo5vtvIaS7JMf2PJfA9HsnoVmfPbyKyEYo5gU1QawJIzVOUrnJqoNca60uJIm5WThLnEue5ciSkjhwqfby6zwCb1D8qB4LyfSNIVDvZbfXXSDN6q8i8vmZk/S4UaAL24XM1OCybxGl2MHDziOYrNKK7WPMjFEL5SQkX2xTHH5BXq0pZ8hCqK1//8d6760aT1mX3pXT3pVNry+v0DR9RXFnljfjueN+jdI4/7Bu97wp+A3OtWtktMXTXX2WKCNe4s/BWiN/9zg5vhwIghdCopnvuTn8BWeBghVfBLMLX6T5L83L9MOVdZ2VMtQXHDQH1ACcMfvxzWBqkwmkP5QetgMHgjZ3TH++W9ySCsiBN7uocoTriAsFeACs++Z06PDKiZ9TZHttwO92paiYoZhCtCk+NPBlgoV1t6q4i8sWxiuRTQ5ptk5LP5WA1TXy89CxPznCG61+8nbEeoHjPD/v1Z2b1UPEwB+dDNgHaxv1ToDww2dAmq77me5rHwfwl6RVCI3ZyjR6eZnB/atOvkSy5l2t+F1ayHzAyQLuaXBz3U0KojTdpn9VmWcmsMclykZYfak5PKabNaOp"
+echo ""
+garis
+echo -e "Example config TCP_SSL 8443"
+garis
+echo ""
+
+echo -e "EITvXEOSgp6E7VP5xVRiqRHLbd7OOZoF5Gdk7/8LNFfVXCX28HeM+KQL8UjtPP/x6gINn2qcYq669FkqF+iXx5g1wYhDbBtTiy7aKDa0whl+lmF+FXD0xaYnXVH7cwjnd/sTrCgXjxcARhEban1utu/MOwaEOtNImI3rsgnrL6JNpiOaKj42JXLmul7+Mf4pHt8ll3z/z6sYSfjfhcb96Va12Yy1RpFf3CGb9b5zunirWMDEmG1HE45awT/Yfj73p22wHcSfTPVq/UqxeXy1nom3CBgymgf5gcVGihuuAMA6B7I2yvu6nXW828sIVC74s+3C/qr+fpMk/LMJsHo57eU58yOkuhiXwScadiDOvw5AO0JnETCntv4SMXZZ5XD2CMzKf8U6SgjlQvc2Qc9t9t3iQt+dYWDUmYmLfLhxMYysE7yrsLhLJZMTnqz/7FB6v5VJTlN25T9ifnXmCQUPLYEl3w9pjky+rLosQs/eLLloDMqeBKjoCspcAX9oFqyNh95K+3nt63v6SChgAwaBYGYDsPhIlnWjdRX+Ekbwi1WVFG8RmrRKm9DAHxnM6T19pNuG4Z9+1a8QTG9pZwNLAKOwLOYc6M+r9iuiZyfhBjq91JiFAl6jtLnNEJqI0PIvlRQ="
+garis
+echo -e "${GREEN}| \E[44;1;39m      XYRVPN STORE            \E[0m|"
+garis
+
+}
+
+
+function delete(){
+clear
+garis
+echo -e "${GREEN}| \E[44;1;39m      °NOOBZVPN'S DELETE°            \E[0m|"
+garis
+read -p "username :" user
+
+noobzvpns --remove-user $user
+clear
+garis
+echo -e "${GREEN}| \E[44;1;39m      °NOOBZVPN'S DELETED!°            \E[0m|"
+garis
+echo "USERNAME: $user"
+echo "Delete success!!"
+garis
+echo -e "${GREEN}| \E[44;1;39m      XYRVPN STORE            \E[0m|"
+garis
+}
+
+
+function renew(){
+clear
+garis
+echo -e "${GREEN}| \E[44;1;39m      °NOOBZVPN'S RENEW°            \E[0m|"
+garis
+read -p "username: " user
+read -p "expired?: " exp
+noobzvpns --renew-user $user --expired-user $user $exp
+clear
+garis
+echo -e "${GREEN}| \E[44;1;39m      °NOOBZVPN'S RENEW!°            \E[0m|"
+garis
+echo "USERNAME: $user"
+echo "renew success!!"
+garis
+echo -e "${GREEN}| \E[44;1;39m      XYRVPN STORE            \E[0m|"
+garis
+}
+
+
+
+
+function lock(){
+clear
+garis
+echo -e "${GREEN}| \E[44;1;39m      °NOOBZVPN'S LOCK°            \E[0m|"
+garis
+read -p "username: " user
+noobzvpns --block-user $user
+clear
+garis
+echo -e "${GREEN}| \E[44;1;39m      °NOOBZVPN'S LOCK!°            \E[0m|"
+garis
+echo "USERNAME: $user"
+echo "locked success!!"
+garis
+echo -e "${GREEN}| \E[44;1;39m      XYRVPN STORE            \E[0m|"
+garis
+}
+
+
+
+
+
+
+function show(){
+
+clear
+garis
+echo -e "${GREEN}| \E[44;1;39m      °NOOBZVPN'S MEMBER!°            \E[0m|"
+garis
+noobzvpns --info-all-user | awk '/^\s*\+.*-> active/ {gsub(/(issued\(yyyymmdd\)|hash_key): [0-9a-f]+/, ""); print; getline; print; getline; getline; getline; print; print "═══════════════════"}'
+
+garis
+echo -e "${GREEN}| \E[44;1;39m      XYRVPN STORE            \E[0m|"
+garis
+}
+
+
+
+function unlock(){
+clear
+garis
+echo -e "${GREEN}| \E[44;1;39m      °NOOBZVPN'S UNLOCK°            \E[0m|"
+garis
+read -p "username: " user
+noobzvpns --unblock-user $user
+clear
+garis
+echo -e "${GREEN}| \E[44;1;39m      °NOOBZVPN'S UNLOCK!°            \E[0m|"
+garis
+echo "USERNAME: $user"
+echo "unlocked success!!"
+garis
+echo -e "${GREEN}| \E[44;1;39m      XYRVPN STORE            \E[0m|"
+garis
+}
+
+
+
+function remove(){
+clear
+garis
+echo -e "${GREEN}| \E[44;1;39m      °NOOBZVPN'S UNLOCK°            \E[0m|"
+garis
+
+read -p "Apakah Anda ingin menghapus semua user? (Y/N): " choice
+
+if [ "$choice" == "Y" ] || [ "$choice" == "y" ]; then
+    # Eksekusi perintah di sini
+    echo "MENGHAPUS SEMUA USER!"
+noobzvpns --remove-all-user
+elif [ "$choice" == "N" ] || [ "$choice" == "n" ]; then
+    echo "Membatalkan penghapusan."
+menu-noobzvpns
+else
+    echo "Pilihan tidak valid."
+fi
+
+clear
+garis
+echo -e "${GREEN}| \E[44;1;39m      °NOOBZVPN'S UNLOCK!°            \E[0m|"
+garis
+echo "USERNAME: $user"
+echo "unlocked success!!"
+garis
+echo -e "${GREEN}| \E[44;1;39m      XYRVPN STORE            \E[0m|"
+garis
+}
+
+
+
+
+clear
+garis
+echo -e "${GREEN}| \E[44;1;39m      °NOOBZVPN'S SERVICE°            \E[0m|"
+garis
+
+
+echo -e "${LIGHT}"
+echo -e "01.MENU CREATE ACCOUNT NOOBZVPNS"
+echo -e "02.MENU DELETE ACCOUNT NOOBZVPNS"
+echo -e "03.MENU RENEW ACCOUNT NOOBZVPNS"
+echo -e "04.MENU LOCK ACCOUNT NOOBZVPNS"
+echo -e "05.MENU UNLOCK ACCOUNT NOOBZVPNS"
+echo -e "06.MENU SHOW ALL USER NOOBZVPNS"
+echo -e "07.MENU REMOVE ALL USER NOOBZVPNS"
+echo -e "00. BACK TO MAIN MENU"
+garis
+echo -e "${GREEN}| \E[44;1;39m            XYRVPN STORE            \E[0m|"
+garis
+echo -e ""
+echo
+read -p " Select menu : " opt
+echo -e ""
+case $opt in
+01 | 1) clear ; create ;;
+02 | 2) clear ; delete ;;
+03 | 3) clear ; renew ;;
+04 | 4) clear ; lock ;;
+05 | 5) clear ; unlock ;;
+06 | 6) clear ; show ;;
+07 | 7) clear ; remove ;;
+00 | 0) clear ; menu ;;
+*) clear ; menu ;;
+esac
