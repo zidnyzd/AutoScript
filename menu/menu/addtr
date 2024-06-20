@@ -46,7 +46,25 @@ clear
 ipsaya=$(curl -sS ipv4.icanhazip.com)
 data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
 date_list=$(date +"%Y-%m-%d" -d "$data_server")
-
+data_ip="https://raw.githubusercontent.com/zidnyzd/hhh/main/Register"
+checking_sc() {
+  useexp=$(wget -qO- $data_ip | grep $ipsaya | awk '{print $3}')
+  if [[ $date_list < $useexp ]]; then
+    echo -ne
+  else
+    echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
+    echo -e "\033[42m          404 NOT FOUND AUTOSCRIPT          \033[0m"
+    echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
+    echo -e ""
+    echo -e "            ${RED}PERMISSION DENIED !${NC}"
+    echo -e "   \033[0;33mYour VPS${NC} $ipsaya \033[0;33mHas not Registered${NC}"
+    echo -e "     \033[0;33mBuy access permissions for scripts${NC}"
+    echo -e "             \033[0;33mContact Admin :${NC}"
+    echo -e "      ${BLUE}Telegram${NC} t.me/storezid"
+    echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
+    exit 0
+  fi
+}
 checking_sc
 clear
 source /var/lib/kyt/ipvps.conf
@@ -103,9 +121,9 @@ trojanlink1="trojan://${uuid}@${domain}:443?mode=gun&security=tls&type=grpc&serv
 trojanlink="trojan://${uuid}@bugkamu.com:443?path=%2Ftrojan-ws&security=tls&host=${domain}&type=ws&sni=${domain}#${user}"
 
 cat >/var/www/html/trojan-$user.txt <<-END
-◇━━━━━━━━━━━━━━━━━◇
+◇======================◇
    Format For Clash
-◇━━━━━━━━━━━━━━━━━◇
+◇======================◇
 
 # Format Trojan GO/WS
 
@@ -136,23 +154,21 @@ cat >/var/www/html/trojan-$user.txt <<-END
   network: grpc
   grpc-opts:
     grpc-service-name: trojan-grpc
+
+
+◇=================◇
+Link Akun Trojan 
+◇=================◇
+Link WS          : 
+${trojanlink}
+◇=================◇
+Link GRPC        : 
+${trojanlink1}
+◇=================◇
+
 END
 
-TEXT="
-<code>◇━━━━━━━━━━━━━━━━━◇</code>
-<code>Link Akun Trojan </code>
-<code>◇━━━━━━━━━━━━━━━━━◇</code>
-<code>Link WS          : </code>
-<code>${trojanlink}</code>
-<code>◇━━━━━━━━━━━━━━━━━◇</code>
-<code>Link GRPC        : </code>
-<code>${trojanlink1}</code>
-<code>◇━━━━━━━━━━━━━━━━━◇</code>
-"
-
-
-
-systemctl reload xray
+systemctl restart xray
 systemctl reload nginx
 service cron restart
 trojanlink="trojan://${uuid}@${domain}:443?path=%2Ftrojan-ws&security=tls&host=${domain}&type=ws&sni=${domain}#${user}"
@@ -186,31 +202,31 @@ echo "### ${user} ${exp} ${uuid} ${Quota} ${iplimit}" >>/etc/trojan/.trojan.db
 curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL
 clear
 echo -e ""
-echo -e "\033[1;93m☉————————————————————————☉\033[0m" | tee -a /etc/user-create/user.log
-echo -e "🧿Status Create TROJAN Succes🧿          " | tee -a /etc/user-create/user.log
-echo -e "\033[1;93m☉————————————————————————☉\033[0m" | tee -a /etc/user-create/user.log
-echo -e "Remarks          : ${user}"  | tee -a /etc/user-create/user.log
-echo -e "Host/IP          : ${domain}" | tee -a /etc/user-create/user.log
-echo -e "User Quota       : ${Quota} GB" | tee -a /etc/user-create/user.log
-echo -e "User Ip          : ${iplimit} IP" | tee -a /etc/user-create/user.log
-echo -e "ISP              : ${ISP}" | tee -a /etc/user-create/user.log
-echo -e "City             : ${CITY}" | tee -a /etc/user-create/user.log
-echo -e "Port             : 400-900"  | tee -a /etc/user-create/user.log
-echo -e "Key              : ${uuid}"  | tee -a /etc/user-create/user.log
-#echo -e "Xray Dns.        : ${NS}" | tee -a /etc/user-create/user.log
-#echo -e "Pubkey.          : ${PUB}" | tee -a /etc/user-create/user.log
-echo -e "Path             : /trojan-ws/multi-path" | tee -a /etc/user-create/user.log
-echo -e "ServiceName      : trojan-grpc"  | tee -a /etc/user-create/user.log
+echo -e "\033[1;93m————————————————————————\033[0m" | tee -a /etc/user-create/user.log
+echo -e "    Xray/Trojan Account          " | tee -a /etc/user-create/user.log
+echo -e "\033[1;93m————————————————————————\033[0m" | tee -a /etc/user-create/user.log
+echo -e "Username     : ${user}"  | tee -a /etc/user-create/user.log
+echo -e "Domain       : ${domain}" | tee -a /etc/user-create/user.log
+#echo -e "Quota       : ${Quota} GB" | tee -a /etc/user-create/user.log
+#echo -e "User Ip     : ${iplimit} IP" | tee -a /etc/user-create/user.log
+echo -e "ISP          : ${ISP}" | tee -a /etc/user-create/user.log
+echo -e "City         : ${CITY}" | tee -a /etc/user-create/user.log
+echo -e "Port         : 443"  | tee -a /etc/user-create/user.log
+echo -e "Key          : ${uuid}"  | tee -a /etc/user-create/user.log
+#echo -e "Xray Dns.   : ${NS}" | tee -a /etc/user-create/user.log
+#echo -e "Pubkey.     : ${PUB}" | tee -a /etc/user-create/user.log
+echo -e "Path         : /multi-path/trojan-ws" | tee -a /etc/user-create/user.log
+echo -e "ServiceName  : trojan-grpc"  | tee -a /etc/user-create/user.log
 echo -e "\033[0;34m☉————————————————————————☉\033[0m"  | tee -a /etc/user-create/user.log
-echo -e "🧿Link TLS         : ${trojanlink}"  | tee -a /etc/user-create/user.log
+echo -e "Link TLS     : ${trojanlink}"  | tee -a /etc/user-create/user.log
 echo -e "\033[0;34m☉————————————————————————☉\033[0m"  | tee -a /etc/user-create/user.log
-echo -e "🧿Link GRPC        : ${trojanlink1}"  | tee -a /etc/user-create/user.log
+echo -e "Link GRPC    : ${trojanlink1}"  | tee -a /etc/user-create/user.log
 echo -e "\033[0;34m☉————————————————————————☉\033[0m"  | tee -a /etc/user-create/user.log
-echo -e "Format OpenClash  : https://${domain}:81/trojan-$user.txt"  | tee -a /etc/user-create/user.log
+echo -e "Format Clash : https://${domain}:81/trojan-$user.txt"  | tee -a /etc/user-create/user.log
 echo -e "\033[0;34m☉————————————————————————☉\033[0m"  | tee -a /etc/user-create/user.log
-echo -e "Aktif Selama     : $masaaktif Hari" | tee -a /etc/user-create/user.log
-echo -e "Dibuat Pada      : $tnggl" | tee -a /etc/user-create/user.log
-echo -e "Berakhir Pada    : $expe" | tee -a /etc/user-create/user.log
+echo -e "Active   : $masaaktif Hari" | tee -a /etc/user-create/user.log
+echo -e "Created  : $tnggl" | tee -a /etc/user-create/user.log
+echo -e "Expired  : $expe" | tee -a /etc/user-create/user.log
 echo -e "\033[0;34m☉————————————————————————☉\033[0m"  | tee -a /etc/user-create/user.log
 echo ""  | tee -a /etc/user-create/user.log
 read -p "Ente Back To Menu"

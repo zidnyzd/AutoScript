@@ -1,0 +1,84 @@
+#!/bin/bash
+
+# Configuration
+bottoken="7248854645:AAGcp6pgiALNdNiw-qavKVBxpL6hdlChK0Q"
+adminid="5533635001"
+InputPass="zidstore"
+IP=$(curl -sS ipv4.icanhazip.com)
+dateToday=$(date +"%Y-%m-%d")
+Name=$(curl https://raw.githubusercontent.com/zidnyzd/hhh/main/Register | grep $IP | awk '{print $2}')
+
+sleep 1
+echo -e "[ ${green}INFO${NC} ] • VPS Data Backup... "
+sleep 1
+echo -e "[ ${green}INFO${NC} ] • Directory Created... "
+mkdir /root/backup &>/dev/null
+mkdir -p /root/backup/vmess &>/dev/null
+mkdir -p /root/backup/vless &>/dev/null
+mkdir -p /root/backup/trojan &>/dev/null
+mkdir -p /root/backup/ssh &>/dev/null
+mkdir -p /root/backup/vmess/ip &>/dev/null
+mkdir -p /root/backup/vless/ip &>/dev/null
+mkdir -p /root/backup/trojan/ip &>/dev/null
+mkdir -p /root/backup/ssh/ip &>/dev/null
+sleep 1
+echo -e "[ ${green}INFO${NC} ] • VPS Data Backup Start Now... "
+echo -e "[ ${green}INFO${NC} ] • Please Wait , Backup In Process Now... "
+sleep 1
+cp /etc/passwd backup/ &>/dev/null
+echo -e "[ ${green}INFO${NC} ] • Backup passwd data..."
+sleep 1
+cp /etc/group backup/ &>/dev/null
+echo -e "[ ${green}INFO${NC} ] • Backup group data..."
+sleep 1
+cp /etc/shadow backup/ &>/dev/null
+echo -e "[ ${green}INFO${NC} ] • Backup shadow data..."
+sleep 1
+cp /etc/gshadow backup/ &>/dev/null
+echo -e "[ ${green}INFO${NC} ] • Backup gshadow data..."
+sleep 1
+cp -r /var/lib/kyt/ backup/kyt &>/dev/null
+cp -r /etc/xray backup/xray &>/dev/null
+cp -r /var/www/html backup/html &>/dev/null
+echo -e "[ ${green}INFO${NC} ] • Backup user data..."
+sleep 1
+cp /etc/vmess/* backup/vmess/quota/ &>/dev/null
+cp /etc/vless/* backup/vless/quota/ &>/dev/null
+cp /etc/trojan/* backup/trojan/quota/ &>/dev/null
+cp /etc/kyt/limit/vmess/ip/* backup/vmess/ip/ &>/dev/null
+cp /etc/kyt/limit/vless/ip/* backup/vless/ip/ &>/dev/null
+cp /etc/kyt/limit/trojan/ip/* backup/trojan/ip/ &>/dev/null
+cp /etc/kyt/limit/ssh/ip/* backup/ssh/ip/ &>/dev/null
+cp /etc/user/ssh/*.txt backup/ssh/ &>/dev/null
+cp -r /etc/user backup/user &>/dev/null
+cd /root &>/dev/null
+
+# Compress the backup
+echo -e "[INFO] Compressing backup..."
+cd /root
+zip -rP "$InputPass" "$IP-$Name-$dateToday.zip" backup >/dev/null 2>&1
+
+# Send backup via Telegram bot
+echo -e "[INFO] Sending backup via Telegram bot..."
+curl -Ss --request POST \
+    --url "https://api.telegram.org/bot${bottoken}/sendDocument?chat_id=${adminid}&caption=Here Your Backup Today : ${dateToday}" \
+    --header 'content-type: multipart/form-data' \
+    --form document=@"/root/$IP-$Name-$dateToday.zip" >/root/t1
+
+fileId=$(grep -o '"file_id":"[^"]*' /root/t1 | grep -o '[^"]*$')
+curl -Ss --request GET \
+    --url "https://api.telegram.org/bot${bottoken}/getfile?file_id=${fileId}" >/root/t1
+filePath=$(grep -o '"file_path":"[^"]*' /root/t1 | grep -o '[^"]*$')
+
+curl -Ss --request GET \
+    --url "https://api.telegram.org/bot${bottoken}/sendMessage?chat_id=${adminid}&text=File ID   : <code>${fileId}</code>&parse_mode=html" &>/dev/null
+curl -Ss --request GET \
+    --url "https://api.telegram.org/bot${bottoken}/sendMessage?chat_id=${adminid}&text=File Path : <code>${filePath}</code>&parse_mode=html" &>/dev/null
+
+# Clean up
+echo -e "[INFO] Cleaning up..."
+rm -rf /root/backup
+rm -f /root/$IP-$Name-$dateToday.zip
+rm -f /root/t1
+
+echo -e "[INFO] Backup process completed."

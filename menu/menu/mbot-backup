@@ -15,7 +15,7 @@ echo -e "\e[32mloading...\e[0m"
 clear
 IP=$(wget -qO- icanhazip.com)
 dateToday=$(date +"%Y-%m-%d")
-Name=$(curl https://raw.githubusercontent.com/Tomketstore/izin/main/ip | grep $MYIP | awk '{print $2}')
+Name=$(curl "https://raw.githubusercontent.com/zidnyzd/hhh/main/Register" | grep $MYIP | awk '{print $2}')
 
 setup_bot() {
     switch=$(grep -i "switch" /root/.bckupbot | awk '{print $2}')
@@ -34,9 +34,12 @@ setup_bot() {
 botBackup() {
     bottoken=$(sed -n '1p' /root/.bckupbot | awk '{print $1}')
     adminid=$(sed -n '2p' /root/.bckupbot | awk '{print $1}')
+    echo -e "[ ${green}INFO${NC} ] Create password for database"
+	read -t 10 -p "Enter password : "  InputPass
+	if [[ -z $InputPass ]]; then
 	InputPass="zidstore"
 	fi
-    sleep 1
+	sleep 1
     echo -e "[ ${green}INFO${NC} ] • VPS Data Backup... "
     sleep 1
     echo -e "[ ${green}INFO${NC} ] • Directory Created... "
@@ -53,23 +56,23 @@ botBackup() {
     echo -e "[ ${green}INFO${NC} ] • VPS Data Backup Start Now... "
     echo -e "[ ${green}INFO${NC} ] • Please Wait , Backup In Process Now... "
     sleep 1
-    cp /etc/passwd backup/ &>/dev/null
-    echo -e "[ ${green}INFO${NC} ] • Backup passwd data..."
-    sleep 1
-    cp /etc/group backup/ &>/dev/null
-    echo -e "[ ${green}INFO${NC} ] • Backup group data..."
-    sleep 1
-    cp /etc/shadow backup/ &>/dev/null
-    echo -e "[ ${green}INFO${NC} ] • Backup shadow data..."
-    sleep 1
-    cp /etc/gshadow backup/ &>/dev/null
-    echo -e "[ ${green}INFO${NC} ] • Backup gshadow data..."
-    sleep 1
+	cp /etc/passwd backup/ &>/dev/null
+	echo -e "[ ${green}INFO${NC} ] • Backup passwd data..."
+	sleep 1
+	cp /etc/group backup/ &>/dev/null
+	echo -e "[ ${green}INFO${NC} ] • Backup group data..."
+	sleep 1
+	cp /etc/shadow backup/ &>/dev/null
+	echo -e "[ ${green}INFO${NC} ] • Backup shadow data..."
+	sleep 1
+	cp /etc/gshadow backup/ &>/dev/null
+	echo -e "[ ${green}INFO${NC} ] • Backup gshadow data..."
+	sleep 1
     cp -r /var/lib/kyt/ backup/kyt &>/dev/null
     cp -r /etc/xray backup/xray &>/dev/null
     cp -r /var/www/html backup/html &>/dev/null
-    echo -e "[ ${green}INFO${NC} ] • Backup user data..."
-    sleep 1
+	echo -e "[ ${green}INFO${NC} ] • Backup user data..."
+	sleep 1
     cp /etc/vmess/* backup/vmess/quota/ &>/dev/null
     cp /etc/vless/* backup/vless/quota/ &>/dev/null
     cp /etc/trojan/* backup/trojan/quota/ &>/dev/null
@@ -168,7 +171,7 @@ autoBackup() {
         echo "Turn Off"
     else
         sed -i 's/switch off/switch on/g' /root/.bckupbot
-        echo "5 0 * * * root autobackup" >>/etc/crontab
+        echo "* * * * * root /usr/local/sbin/mbot-backup botBackup" >>/etc/crontab
         service cron restart >/dev/null 2>&1
         service cron reload >/dev/null 2>&1
         echo "Turn On"
