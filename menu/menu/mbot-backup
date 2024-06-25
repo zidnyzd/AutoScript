@@ -171,7 +171,7 @@ autoBackup() {
         echo "Turn Off"
     else
         sed -i 's/switch off/switch on/g' /root/.bckupbot
-        echo "* * * * * root /usr/local/sbin/mbot-backup botBackup" >>/etc/crontab
+        echo "0 */6 * * *  root /usr/local/sbin/autobackup" >>/etc/cron.d/autobackup
         service cron restart >/dev/null 2>&1
         service cron reload >/dev/null 2>&1
         echo "Turn On"
@@ -185,22 +185,22 @@ botbckpBot_menu() {
     switch=$(grep -i "switch" /root/.bckupbot | awk '{print $2}')
     clear
     if [ "${switch}" == "on" ]; then
-        sts="\033[0;32m[On]\033[0m"
+        sts="\033[0;32m[ON Every 6 Hours]\033[0m"
     else
-        sts="\033[1;31m[Off]\033[0m"
+        sts="\033[1;31m[OFF]\033[0m"
     fi
 	echo -e " ${Blue}╭═══════════════════════════════════════════════════════╮${NC}"
 	echo -e " ${Blue}│$NC\033[41m               Telegram Bot (AutoBackup)               \E[0m"
 	echo -e " ${Blue}╰═══════════════════════════════════════════════════════╯${NC}"
     echo -e " ${Blue}╭═══════════════════════════════════════════════════════╮${NC}"
-    echo -e " ${Blue}│$NC ${green} VPS Data Backup"
+    echo -e " ${Blue}│$NC ${green} VPS Data Backup via Bot Telegram"
     echo -e " ${Blue}│$NC"
-    echo -e " ${Blue}│$NC ${green} Status AutoBackup : $sts"
-    echo -e " ${Blue}│$NC [${green}1${NC}] Setup Bot Telegram \e[0m"
-    echo -e " ${Blue}│$NC [${green}2${NC}] Auto Backup Status \e[0m"
-    echo -e " ${Blue}│$NC [${green}3${NC}] Backup VPS (Telegram Bot) \e[0m"
-    echo -e " ${Blue}│$NC [${green}4${NC}] Restore Data \e[0m"
-    echo -e " ${Blue}│$NC [${green}x${NC}] Back To Main Menu \e[0m"
+    echo -e " ${Blue}│$NC ${green} Status AutoBackup : $sts" 
+    echo -e " ${Blue}│$NC ${green}1${NC}. Setup Bot Telegram \e[0m"
+    echo -e " ${Blue}│$NC ${green}2${NC}. Auto Backup Status \e[0m"
+    echo -e " ${Blue}│$NC ${green}3${NC}. Force Backup via Telegram Bot \e[0m"
+    echo -e " ${Blue}│$NC ${green}4${NC}. Restore Data \e[0m"
+    echo -e " ${Blue}│$NC ${green}x${NC}. Back To Main Menu \e[0m"
     echo -e " ${Blue}╰═══════════════════════════════════════════════════════╯${NC}"
     echo -e ""
     echo -ne "Select From Options [ 1 - 4 or x ] : "

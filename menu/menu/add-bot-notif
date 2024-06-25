@@ -1,6 +1,5 @@
 #!/bin/bash
 clear
-#By = t.me/bogelxd_vpn
 red() { echo -e "\\033[32;1m${*}\\033[0m"; }
 RED='\033[0;31m'
 NC='\e[0m'

@@ -64,14 +64,14 @@ TIME="$TIME"
 URL="$URL"
 TEXT="
 <code>◇━━━━━━━━━━━━━━◇</code>
-<b>   ⚠️BACKUP NOTIF⚠️</b>
+<b>   ⚠️BOT NOTIF⚠️</b>
 <b>     Detail Backup VPS</b>
 <code>◇━━━━━━━━━━━━━━◇</code>
 <b>IP VPS  :</b> <code>${IP} </code>
 <b>DOMAIN :</b> <code>${domain}</code>
 <b>Tanggal : $date</b>
 <code>◇━━━━━━━━━━━━━━◇</code>
-<b>Link Backup   :</b> $link
+<b>Link Backup   :</b> https://drive.google.com/u/4/uc?id=${id}&export=download
 <code>◇━━━━━━━━━━━━━━◇</code>
 <code>Silahkan copy Link dan restore di VPS baru</code>
 <code>BY BOT : @tomketvpn</code>
